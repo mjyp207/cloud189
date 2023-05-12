@@ -1,7 +1,7 @@
 """
 [url=https://www.52pojie.cn/thread-1231190-1-1.html]https://www.52pojie.cn/thread-1231190-1-1.html[/url]
  
-感谢作者开源天翼云<strong><font color="#FF0000">签到</font></strong>部分源码：
+感谢作者开源天翼云签到部分源码：
 https://github.com/t00t00-crypto/cloud189-action/blob/master/checkin.py 及 [login_function.py](https://github.com/Dawnnnnnn/Cloud189/blob/master/functions/login_function.py)
 """
 import time
@@ -22,16 +22,16 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 s = requests.Session()
  
 # 在下面两行的引号内贴上账号（仅支持手机号）和密码
-user = ""
-pwd = ""
+username = ""
+password = ""
  
 _ = """
-if(user == "" or pwd == ""):
-    user = input("账号：")
-    pwd = input("密码：")
+if(username == "" or password == ""):
+    username = input("账号：")
+    password = input("密码：")
 # """
  
-assert user and pwd, "在第23、24行填入有效账号和密码"
+assert username and password, "在第23、24行填入有效账号和密码"
  
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = "300af053f862cef6bbf651b276d26cbbfad4710e11e4a14fff028f808fb5604f"
@@ -86,7 +86,7 @@ def calculate_md5_sign(params):
     return hashlib.md5('&'.join(sorted(params.split('&'))).encode('utf-8')).hexdigest()
  
  
-def login(user, wd):
+def login(username, password):
     #https://m.cloud.189.cn/login2014.jsp?redirectURL=https://m.cloud.189.cn/zhuanti/2021/shakeLottery/index.html
     url=""
     urlToken="https://m.cloud.189.cn/udb/udb_login.jsp?pageId=1&pageKey=default&clientType=wap&redirectURL=https://m.cloud.189.cn/zhuanti/2021/shakeLottery/index.html"
@@ -118,8 +118,8 @@ def login(user, wd):
     j_rsakey = re.findall(r'j_rsaKey" value="(\S+)"', r.text, re.M)[0]
     s.headers.update({"lt": lt})
  
-    user = rsa_encode(j_rsakey, user)
-    pwd = rsa_encode(j_rsakey, pwd)
+    username = rsa_encode(j_rsakey, username)
+    password = rsa_encode(j_rsakey, password)
     url = "https://open.e.189.cn/api/logbox/oauth2/loginSubmit.do"
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0',
@@ -128,8 +128,8 @@ def login(user, wd):
     data = {
         "appKey": "cloud",
         "accountType": '01',
-        "userName": f"{{RSA}}{user}",
-        "password": f"{{RSA}}{pwd}",
+        "userName": f"{{RSA}}{username}",
+        "password": f"{{RSA}}{password}",
         "validateCode": "",
         "captchaToken": captchaToken,
         "returnUrl": returnUrl,
@@ -147,7 +147,7 @@ def login(user, wd):
  
  
 def main():
-    s=login(user, pwd)
+    s=login(username, password)
     rand = str(round(time.time() * 1000))
     surl = f'https://api.cloud.189.cn/mkt/userSign.action?rand={rand}&clientType=TELEANDROID&version=8.6.3&model=SM-G930K'
     url = f'https://m.cloud.189.cn/v2/drawPrizeMarketDetails.action?taskId=TASK_SIGNIN&activityId=ACT_SIGNIN'
