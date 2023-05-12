@@ -2,14 +2,14 @@ name: 签到
 
 on:
   schedule:
-    - cron: '0 22,14 * * *'
+    - cron: 40 14,4 * * *
   watch:
     types: started
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id
+    if: github.event_name == 'schedule' || github.event_name == 'watch' && github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - uses: actions/checkout@v2
@@ -17,9 +17,14 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.7
-    - name: 签到
+    - name: 安装依赖包
       run: |
         pip install -r requirements.txt
+    - name: 执行签到
+      run: |
+        echo -n "This IP is: " 
+        curl -s ifconfig.me
+        echo ' '
         
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
