@@ -1,7 +1,7 @@
 """
 [url=https://www.52pojie.cn/thread-1231190-1-1.html]https://www.52pojie.cn/thread-1231190-1-1.html[/url]
  
-感谢作者开源天翼云签到部分源码：
+感谢作者开源天翼云签到部分源码
 https://github.com/t00t00-crypto/cloud189-action/blob/master/checkin.py 及 [login_function.py](https://github.com/Dawnnnnnn/Cloud189/blob/master/functions/login_function.py)
 """
 import time
