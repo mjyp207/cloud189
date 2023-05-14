@@ -13,12 +13,11 @@ s = requests.Session()
 
 username = ""
 password = ""
-
-# pushplus推送 设置密钥
 pushplus_token = ""
+# pushplus推送 设置密钥
  
 if not pushplus_token:
-    print("第18行的pushplus_token 为空，签到结果将不会通过钉钉发送")
+    print("第18行的pushplus_token 为空，签到结果将不会推送")
 
 if(username == "" or password == ""):
     username = input("账号：")
