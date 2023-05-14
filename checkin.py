@@ -4,16 +4,13 @@
 感谢作者开源天翼云签到部分源码
 https://github.com/t00t00-crypto/cloud189-action/blob/master/checkin.py 及 [login_function.py](https://github.com/Dawnnnnnn/Cloud189/blob/master/functions/login_function.py)
 """
-import time
-import re
-import json
+import argparse
 import base64
-import hashlib
-# from urllib import parse
-import urllib.parse,hmac
-import rsa
+import re
+import time
+
 import requests
-import random
+import rsa
  
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
  
@@ -246,4 +243,11 @@ def handler(event, context):  # aliyun default
  
 if __name__ == "__main__":
     # time.sleep(random.randint(5, 30))
+  if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='天翼云签到脚本')
+    parser.add_argument('--username', type=str, help='账号')
+    parser.add_argument('--password', type=str, help='密码')
+    args = parser.parse_args()
+    helper = CheckIn(args.username, args.password)
+    helper.check_in()
     main()
