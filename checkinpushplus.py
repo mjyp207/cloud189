@@ -86,7 +86,7 @@ def main():
                     "token": pushplus_token,
                     "title": title,
                     "content": f'{username}\n{res1}\n{res2}\n{res3}\n{res4}\n',
-        
+                }
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
 def int2char(a):
     return BI_RM[a]
