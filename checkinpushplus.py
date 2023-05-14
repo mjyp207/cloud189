@@ -14,13 +14,11 @@ s = requests.Session()
 username = ""
 password = ""
 
-# 钉钉机器人token 申请key 并设置密钥
-ddtoken = ""
-ddsecret = ""
-# xuthuskey = "27a...........................7b"
+# pushplus推送 设置密钥
+pushplus_token = ""
  
-if not ddtoken:
-    print("第36行的ddtoken 为空，签到结果将不会通过钉钉发送")
+if not pushplus_token:
+    print("第18行的pushplus_token 为空，签到结果将不会通过钉钉发送")
 
 if(username == "" or password == ""):
     username = input("账号：")
@@ -80,26 +78,14 @@ def main():
         description = response.json()['description']
         print(f"链接3抽奖获得{description}")
         res4 = f"链接3抽奖获得{description}"
-    if ddtoken.strip():
-        _ = ddtoken.strip()
-        timestamp = str(round(time.time() * 1000))
-        secret_enc = ddsecret.encode('utf-8')
-        string_to_sign = '{}\n{}'.format(timestamp, ddsecret)
-        string_to_sign_enc = string_to_sign.encode('utf-8')
-        hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
-        sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
-        url = f'https://oapi.dingtalk.com/robot/send?access_token={ddtoken}×tamp={timestamp}&sign={sign}'
-        headers = {"Content-Type": "application/json;charset=utf-8"}
-        data = {"msgtype": "markdown",
-                "markdown": {"title": f"sing189", "text": f"sing189 \n> {res1} \n>{res2}{res3}{res4}"}}
-        response = requests.post(
-            url=url, data=json.dumps(data), headers=headers, timeout=15
-        ).json()
- 
-        if not response["errcode"]:
-            print("钉钉机器人 推送成功！")
-        else:
-            print("钉钉机器人 推送失败！") 
+        
+    if pushplus_token:
+                title = '天翼云盘签到'
+                url = 'http://www.pushplus.plus/send'
+                data = {
+                    "token": pushplus_token,
+                    "title": title,
+                    "content": f'{username}\n{res1}\n{res2}\n{res3}\n{res4}\n',
         
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
 def int2char(a):
