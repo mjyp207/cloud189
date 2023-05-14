@@ -26,8 +26,8 @@ jobs:
         
     - name: Checkin
       run: |
-        username='${{ secrets.USER }}'
-        password='${{ secrets.PWD }}'
+        user='${{ secrets.USER }}'
+        pwd='${{ secrets.PWD }}'
         
         user_list=()
         pwd_list=()
