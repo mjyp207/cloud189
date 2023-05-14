@@ -1,5 +1,5 @@
 name: cloundqiandao
-  
+
 on:
   push:
     branches: [ master ]
@@ -11,7 +11,7 @@ on:
 jobs:
   check-in:
     runs-on: ubuntu-latest
-
+ 
     steps:
     - uses: actions/checkout@v2
 
@@ -29,26 +29,26 @@ jobs:
         username='${{ secrets.USER }}'
         password='${{ secrets.PWD }}'
         
-        username_list=()
-        password_list=()
+        user_list=()
+        pwd_list=()
         IFS=","
-        for u in ${username[*]}
+        for u in ${user[*]}
         do
-        username_list[${#username_list[*]}]=${u}
+        user_list[${#user_list[*]}]=${u}
         done
-        for p in ${password[*]}
+        for p in ${pwd[*]}
         do
-        password_list[${#password_list[*]}]=${p}
+        pwd_list[${#pwd_list[*]}]=${p}
         done
-        username_num=${#username_list[*]}
-        password_num=${#password_list[*]}
-        if [ $username_num != $password_num ];then
+        user_num=${#user_list[*]}
+        pwd_num=${#pwd_list[*]}
+        if [ $user_num != $pwd_num ];then
         echo "账号和密码个数不对应"
         exit 1
         else
-        echo "共有 $username_num 个账号，即将开始签到"
+        echo "共有 $user_num 个账号，即将开始签到"
         fi
-        for ((i=0;i<$username_num;i++))
+        for ((i=0;i<$user_num;i++))
         do
-        python3 checkin.py --username ${username_list[$i]} --password ${password_list[$i]}
+        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
         done
