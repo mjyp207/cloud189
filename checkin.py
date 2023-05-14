@@ -227,10 +227,4 @@ def handler(event, context):  # aliyun default
  
 if __name__ == "__main__":
     # time.sleep(random.randint(5, 30))
-    parser = argparse.ArgumentParser(description='天翼云签到脚本')
-    parser.add_argument('--username', type=str, help='账号')
-    parser.add_argument('--password', type=str, help='密码')
-    args = parser.parse_args()
-    helper = CheckIn(args.username, args.password)
-    helper.check_in()
     main()
