@@ -1,9 +1,3 @@
-"""
-[url=https://www.52pojie.cn/thread-1231190-1-1.html]https://www.52pojie.cn/thread-1231190-1-1.html[/url]
- 
-感谢作者开源天翼云签到部分源码
-https://github.com/t00t00-crypto/cloud189-action/blob/master/checkin.py 及 [login_function.py](https://github.com/Dawnnnnnn/Cloud189/blob/master/functions/login_function.py)
-"""
 import argparse
 import base64
 import re
@@ -17,7 +11,7 @@ BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
 B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
 s = requests.Session()
-   
+ 
 # 在下面两行的引号内贴上账号（仅支持手机号）和密码
 username = ""
 password = ""
@@ -29,8 +23,7 @@ if(username == "" or password == ""):
 # """
  
 assert username and password, "在第23、24行填入有效账号和密码"
-
-
+ 
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = ""
 ddsecret = ""
@@ -212,12 +205,11 @@ def main():
         response = requests.post(
             url=url, data=json.dumps(data), headers=headers, timeout=15
         ).json()
-      
-                if not response["errcode"]:
-                    print("钉钉机器人 推送成功！")
-                else:
-                    print("钉钉机器人 推送失败！")
-      
+ 
+        if not response["errcode"]:
+            print("钉钉机器人 推送成功！")
+        else:
+            print("钉钉机器人 推送失败！")
 def lambda_handler(event, context):  # aws default
     main()
  
@@ -231,12 +223,11 @@ def handler(event, context):  # aliyun default
  
  
 if __name__ == "__main__":
-    # time.sleep(random.randint(5, 30))
-  if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='天翼云签到脚本')
     parser.add_argument('--username', type=str, help='账号')
     parser.add_argument('--password', type=str, help='密码')
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
     helper.check_in()
+    # time.sleep(random.randint(5, 30))
     main()
