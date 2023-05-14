@@ -12,8 +12,14 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
 s = requests.Session()
  
-# 在下面两行的引号内贴上账号（仅支持手机号）和密码
- 
+# 在下面两行的引号内贴上账号（仅支持手机号）和密码 
+
+def __init__(self, username, password):
+        self.username = username
+        self.password = password
+if(username == "" or password == ""):
+    username = input("账号：")
+    password = input("密码：")
 
  
 assert username and password, "在第23、24行填入有效账号和密码"
