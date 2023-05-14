@@ -16,7 +16,7 @@ password = ""
 
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = ""
-ddsecret = "SECf5c61a66b14c39f7ab537f7de156bd1bed4fbc8cba2aa5219bf305d795662813"
+ddsecret = ""
 # xuthuskey = "27a...........................7b"
  
 if not ddtoken:
