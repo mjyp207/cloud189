@@ -28,8 +28,7 @@ jobs:
       run: |
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
-        ddtoken='${{ secrets.token }}'
-        ddsecret='${{ secrets.secret }}'
+        pushplus_token='${{ secrets.token }}'
         
         user_list=()
         pwd_list=()
