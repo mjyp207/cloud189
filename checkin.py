@@ -1,10 +1,13 @@
-import argparse
-import base64
-import re
 import time
-
-import requests
+import re
+import json
+import base64
+import hashlib
+# from urllib import parse
+import urllib.parse,hmac
 import rsa
+import requests
+import random
  
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
  
@@ -12,11 +15,17 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
 s = requests.Session()
  
-# 在下面两行的引号内贴上账号（仅支持手机号）和密码 
-
-def __init__(self, username, password):
-        self.username = username
-        self.password = password
+# 在下面两行的引号内贴上账号（仅支持手机号）和密码
+username = ""
+password = ""
+ 
+_ = """
+if(username == "" or password == ""):
+    username = input("账号：")
+    password = input("密码：")
+# """
+ 
+assert username and password, "在第23、24行填入有效账号和密码"
  
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = ""
@@ -71,7 +80,7 @@ def calculate_md5_sign(params):
     return hashlib.md5('&'.join(sorted(params.split('&'))).encode('utf-8')).hexdigest()
  
  
-def login(self):
+def login(username, password):
     #https://m.cloud.189.cn/login2014.jsp?redirectURL=https://m.cloud.189.cn/zhuanti/2021/shakeLottery/index.html
     url=""
     urlToken="https://m.cloud.189.cn/udb/udb_login.jsp?pageId=1&pageKey=default&clientType=wap&redirectURL=https://m.cloud.189.cn/zhuanti/2021/shakeLottery/index.html"
@@ -131,7 +140,7 @@ def login(self):
     return s
  
  
-def main(self):
+def main():
     s=login(username, password)
     rand = str(round(time.time() * 1000))
     surl = f'https://api.cloud.189.cn/mkt/userSign.action?rand={rand}&clientType=TELEANDROID&version=8.6.3&model=SM-G930K'
