@@ -213,12 +213,12 @@ def main():
         response = requests.post(
             url=url, data=json.dumps(data), headers=headers, timeout=15
         ).json()
- 
-        if not response["errcode"]:
-            print("钉钉机器人 推送成功！")
-        else:
+      
+                if not response["errcode"]:
+                    print("钉钉机器人 推送成功！")
+                else:
                     print("钉钉机器人 推送失败！")
-           if pushplus_token:
+            if pushplus_token:
                 title = '天翼云盘签到'
                 url = 'http://www.pushplus.plus/send'
                 data = {
@@ -229,6 +229,7 @@ def main():
                 body = json.dumps(data).encode(encoding='utf-8')
                 headers = {'Content-Type': 'application/json'}
                 requests.post(url, data=body, headers=headers)
+      
 def lambda_handler(event, context):  # aws default
     main()
  
