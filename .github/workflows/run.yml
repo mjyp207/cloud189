@@ -28,7 +28,7 @@ jobs:
       run: |
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
-        pushplus_token='${{ secrets.token }}'
+        pushplus_token='${{ secrets.TOKEN }}'
         
         user_list=()
         pwd_list=()
@@ -45,6 +45,12 @@ jobs:
         do
         echo ${p}
         pwd_list[${#pwd_list[*]}]=${p}
+        done
+
+        for t in ${pushplus_token[*]}
+        do
+        echo ${t}
+        pushplus_token[${#pushplus_token[*]}]=${t}
         done
 
         user_num=${#user_list[*]}
