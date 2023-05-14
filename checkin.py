@@ -21,7 +21,17 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
 s = requests.Session()
    
-assert username and password
+# 在下面两行的引号内贴上账号（仅支持手机号）和密码
+username = ""
+password = ""
+ 
+_ = """
+if(username == "" or password == ""):
+    username = input("账号：")
+    password = input("密码：")
+# """
+ 
+assert username and password, "在第23、24行填入有效账号和密码"
 
 #填入pushplus token
 pushplus_token = "5aca3c5b84054f89972f79d5090601d1"
@@ -210,7 +220,18 @@ def main():
         if not response["errcode"]:
             print("钉钉机器人 推送成功！")
         else:
-            print("钉钉机器人 推送失败！")
+                    print("钉钉机器人 推送失败！")
+           if pushplus_token:
+                title = '天翼云盘签到'
+                url = 'http://www.pushplus.plus/send'
+                data = {
+                    "token": pushplus_token,
+                    "title": title,
+                    "content": f'{username}\n{res1}\n{res2}\n{res3}\n{res4}\n',
+                }
+                body = json.dumps(data).encode(encoding='utf-8')
+                headers = {'Content-Type': 'application/json'}
+                requests.post(url, data=body, headers=headers)
 def lambda_handler(event, context):  # aws default
     main()
  
