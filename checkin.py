@@ -19,13 +19,10 @@ s = requests.Session()
 username = ""
 password = ""
  
-_ = """
 if(username == "" or password == ""):
     username = input("账号：")
     password = input("密码：")
-# """
  
-assert username and password, "在第23、24行填入有效账号和密码"
  
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = ""
