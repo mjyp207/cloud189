@@ -21,17 +21,6 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
 s = requests.Session()
  
-# 在下面两行的引号内贴上账号（仅支持手机号）和密码
-        username="${{ secrets.USER }}"
-        password="${{ secrets.PWD }}"
- 
-_ = """
-if(username == "" or password == ""):
-    username = input("账号：")
-    password = input("密码：")
-# """
- 
-assert username and password, "在第23、24行填入有效账号和密码"
  
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = "300af053f862cef6bbf651b276d26cbbfad4710e11e4a14fff028f808fb5604f"
