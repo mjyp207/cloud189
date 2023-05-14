@@ -29,26 +29,26 @@ jobs:
         username='${{ secrets.USER }}'
         password='${{ secrets.PWD }}'
         
-        user_list=()
-        pwd_list=()
+        username_list=()
+        password_list=()
         IFS=","
-        for u in ${user[*]}
+        for u in ${username[*]}
         do
-        user_list[${#user_list[*]}]=${u}
+        username_list[${#username_list[*]}]=${u}
         done
-        for p in ${pwd[*]}
+        for p in ${password[*]}
         do
-        pwd_list[${#pwd_list[*]}]=${p}
+        password_list[${#password_list[*]}]=${p}
         done
-        user_num=${#user_list[*]}
-        pwd_num=${#pwd_list[*]}
-        if [ $user_num != $pwd_num ];then
+        username_num=${#username_list[*]}
+        password_num=${#password_list[*]}
+        if [ $username_num != $password_num ];then
         echo "账号和密码个数不对应"
         exit 1
         else
-        echo "共有 $user_num 个账号，即将开始签到"
+        echo "共有 $username_num 个账号，即将开始签到"
         fi
-        for ((i=0;i<$user_num;i++))
+        for ((i=0;i<$username_num;i++))
         do
-        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
+        python3 checkin.py --username ${username_list[$i]} --password ${password_list[$i]}
         done
