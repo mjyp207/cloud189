@@ -30,8 +30,7 @@ if(username == "" or password == ""):
  
 assert username and password, "在第23、24行填入有效账号和密码"
 
-#填入pushplus token
-pushplus_token = "5aca3c5b84054f89972f79d5090601d1"
+
 # 钉钉机器人token 申请key 并设置密钥
 ddtoken = ""
 ddsecret = ""
@@ -218,17 +217,6 @@ def main():
                     print("钉钉机器人 推送成功！")
                 else:
                     print("钉钉机器人 推送失败！")
-            if pushplus_token:
-                title = '天翼云盘签到'
-                url = 'http://www.pushplus.plus/send'
-                data = {
-                    "token": pushplus_token,
-                    "title": title,
-                    "content": f'{username}\n{res1}\n{res2}\n{res3}\n{res4}\n',
-                }
-                body = json.dumps(data).encode(encoding='utf-8')
-                headers = {'Content-Type': 'application/json'}
-                requests.post(url, data=body, headers=headers)
       
 def lambda_handler(event, context):  # aws default
     main()
