@@ -13,8 +13,6 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 s = requests.Session()
  
 # 在下面两行的引号内贴上账号（仅支持手机号）和密码
-username = ""
-password = ""
  
 _ = """
 if(username == "" or password == ""):
