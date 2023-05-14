@@ -15,7 +15,7 @@ username = ""
 password = ""
 
 # 钉钉机器人token 申请key 并设置密钥
-ddtoken = "300af053f862cef6bbf651b276d26cbbfad4710e11e4a14fff028f808fb5604f"
+ddtoken = ""
 ddsecret = "SECf5c61a66b14c39f7ab537f7de156bd1bed4fbc8cba2aa5219bf305d795662813"
 # xuthuskey = "27a...........................7b"
  
