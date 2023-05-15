@@ -15,23 +15,6 @@ BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
 B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
  
  
-# 定义日志系统
-logger = getLogger(__name__)
-logger.setLevel('INFO')
-log_format = Formatter('[%(asctime)s] %(levelname)s : %(message)s')
- 
-console_handler = StreamHandler()
-console_handler.setLevel('INFO')
-console_handler.setFormatter(log_format)
-logger.addHandler(console_handler)
- 
-log_path = Path('logs')
-log_path.mkdir(parents=True, exist_ok=True)
-log_file = log_path / f'{time.strftime("%Y%m%d")}.log'
-file_handler = FileHandler(log_file, mode='a', encoding='utf-8')
-file_handler.setLevel('DEBUG')
-file_handler.setFormatter(log_format)
-logger.addHandler(file_handler)
  
  
 # 定义工具函数
@@ -127,14 +110,14 @@ def login(username: str, password: str, timeout: int = 10) -> requests.Session:
         resp = session.post(url_token, headers=headers, data=base64.b64encode(json.dumps(params).encode()).decode(), timeout=timeout)
         resp.raise_for_status()
     except requests.exceptions.RequestException:
-        logger.exception('Failed to login')
+
         raise
      
     if resp.json().get('result') != '0':
-        logger.error('Failed to login: %s', resp.json())
+
         raise RuntimeError('Failed to login')
      
-    logger.info('Login successfully')
+
  
     return session
  
@@ -158,17 +141,17 @@ def sign_in(session: requests.Session, timeout: int = 10) -> Dict[str, int]:
         resp = session.get(url_sign_in, headers=headers, timeout=timeout)
         resp.raise_for_status()
     except requests.exceptions.RequestException:
-        logger.exception('Failed to sign in')
+
         raise
  
     resp_json = resp.json()
     if resp_json.get('isSign') == 'Y':
-        logger.info('Already signed in')
+
     elif resp_json.get('signFlag') == '1':
-        logger.info('Signed in successfully')
+
     else:
         msg = f"Failed to sign in: {resp_json.get('msg')}"
-        logger.warning(msg)
+
  
     # 抽奖
     rewards = {}
@@ -177,7 +160,7 @@ def sign_in(session: requests.Session, timeout: int = 10) -> Dict[str, int]:
             resp_lottery = session.get(url_lottery, headers=headers, timeout=timeout)
             resp_lottery.raise_for_status()
         except requests.exceptions.RequestException:
-            logger.exception('Failed to draw lottery')
+
             raise
          
         resp_reward_info = session.get(url_reward_info, headers=headers, timeout=timeout)
@@ -188,7 +171,7 @@ def sign_in(session: requests.Session, timeout: int = 10) -> Dict[str, int]:
         num = int(resp_json['giftList'][i]['giftNum'])
         rewards[name] = num
  
-        logger.info('Draw lottery: %s x %d', name, num)
+
  
     # 发送企业微信消息
     message = f"天翼云盘签到：已签到\n\n"
@@ -207,10 +190,10 @@ def sign_in(session: requests.Session, timeout: int = 10) -> Dict[str, int]:
         resp = requests.post(url_message, json=params, timeout=timeout)
         resp.raise_for_status()
     except requests.exceptions.RequestException:
-        logger.exception('Failed to send wechat message')
+
         raise
  
-    logger.info('Send wechat message successfully')
+
  
     return rewards
  
@@ -220,7 +203,7 @@ def main(username: str, password: str, timeout: int = 10) -> None:
     with login(username, password, timeout=timeout) as session:
         rewards = sign_in(session, timeout=timeout)
  
-    logger.info('Sign in finish: %s', rewards)
+
  
  
 if __name__ == '__main__':
