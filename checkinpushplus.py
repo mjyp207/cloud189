@@ -13,7 +13,7 @@ s = requests.Session()
 
 username = ""
 password = ""
-PUSHPLUS_TOKEN: ${{ inputs.TOKEN }}
+PUSHPLUS_TOKEN = ""
 # pushplus推送 设置密钥
  
 if not pushplus_token:
