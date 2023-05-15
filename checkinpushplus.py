@@ -228,6 +228,4 @@ def main(username: str, password: str, timeout: int = 10) -> None:
  
  
 if __name__ == '__main__':
-    username = os.getenv('USER')
-    password = os.getenv('PWD')
     main(username, password)
