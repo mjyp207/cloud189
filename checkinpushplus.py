@@ -13,11 +13,11 @@ s = requests.Session()
 
 username = ""
 password = ""
-pushplus_token = ""
+PUSHPLUS_TOKEN: ${{ inputs.TOKEN }}
 # pushplus推送 设置密钥
  
 if not pushplus_token:
-    print("第18行的pushplus_token 为空，签到结果将不会推送")
+    print("第16行的pushplus_token 为空，签到结果将不会推送")
 
 if(username == "" or password == ""):
     username = input("账号：")
