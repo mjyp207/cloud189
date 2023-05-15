@@ -1,27 +1,35 @@
-name: checkinpushplus
+name: 天翼云盘签到
 on:
   push:
-    branches:
-      - main
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron:  26 17,23 * * *
+  workflow_dispatch:
   watch:
     types: started
-  schedule:
-    - cron: 0 2,14 * * *
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    environment: user
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup Node.js environment
-      uses: actions/setup-node@v3
-      with:
-        node-version: 14
 
-    - name: init
-      run: npm install
-    - name: run
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    #if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+    - name: 安装环境
+      run:
+        #python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: 签到
+      run: |
+        python3 ./checkinpushplus.py
       env:
-        user: ${{secrets.USER}}
-        pwd: ${{secrets.PWD}}
-      run: npm start
+        #QYWX_CORPID: ${{ secrets.QYWX_CORPID }}
+        #QYWX_CORPSECRET: ${{ secrets.QYWX_CORPSECRET }}
+        #QYWX_AGENTID: ${{ secrets.QYWX_AGENTID }}
+        USERNAME: ${{ secrets.USER }}
+        PASSWORD: ${{ secrets.PWD }}
