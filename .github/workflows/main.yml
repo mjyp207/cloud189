@@ -1,0 +1,27 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+  watch:
+    types: started
+  schedule:
+    - cron: 0 2,14 * * *
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment: user
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup Node.js environment
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: init
+      run: npm install
+    - name: run
+      env:
+        user: ${{secrets.USER}}
+        pwd: ${{secrets.PWD}}
+      run: npm start
