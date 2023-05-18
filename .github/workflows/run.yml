@@ -26,7 +26,7 @@ jobs:
         
     - name: Checkin
       run: |
-        ty_username='${{ secrets.USER }}'
-        ty_password='${{ secrets.PWD }}'
+        username='${{ secrets.USER }}'
+        password='${{ secrets.PWD }}'
         python3 tyyun.py 
         done
