@@ -1,4 +1,4 @@
-name: 天翼云盘签到抽奖
+name: 签到
 
 on:
   push:
@@ -6,27 +6,32 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: '0 22,14 * * *' 
+    - cron: '0 22,14 * * *'
+  watch:
+    types: started
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Install Python
+    - name: 初始化Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+    - name: 签到
       run: |
-        sudo apt update && \
-        sudo apt install python3
-      
-    - name: requirements
-      run: |
-        pip3 install -r requirements.txt
-            
+        pip install -r requirements.txt
         
-    - name: Checkin
-      run: |
-        username='${{ secrets.USER }}'
-        password='${{ secrets.PWD }}'
-        python3 tyyun.py 
+        user='${{ secrets.USER }}'
+        pwd='${{ secrets.PWD }}'
+        
+        
+        split=","
+
+
+        python3 tyyun.py
+
         done
