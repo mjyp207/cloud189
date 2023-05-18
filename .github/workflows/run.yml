@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 
+    - cron: '0 22,14 * * *' 
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -58,7 +58,7 @@ jobs:
 
         for ((i=0;i<$user_num;i++))
         do
-        python3 checkin.py <<EOF
+        python3 tyyun.py <<EOF
         ${user_list[$i]}
         ${pwd_list[$i]}
         EOF
