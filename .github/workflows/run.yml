@@ -1,4 +1,4 @@
-name: 签到
+name: 天翼云盘签到抽奖
 
 on:
   push:
@@ -6,8 +6,7 @@ on:
   pull_request:
     branches: [ master ]
   schedule:
-    - cron: 0 4, * * *
-
+    - cron: ''
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -23,9 +22,12 @@ jobs:
     - name: requirements
       run: |
         pip3 install -r requirements.txt
-         
-      - name: Checkin
-        run: |
-          user='${{ secrets.USER }}'
-          passwd='${{ secrets.PWD }}' 
-          python3 checkin.py ${user} ${passwd}
+            
+        
+    - name: Checkin
+      run: |
+        user='${{ secrets.USER }}'
+        pwd='${{ secrets.PWD }}'
+        python3 checkin.py ${user} ${passwd}
+        done
+        
