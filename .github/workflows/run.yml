@@ -28,8 +28,5 @@ jobs:
       run: |
         ty_username='${{ secrets.USER }}'
         ty_password='${{ secrets.PWD }}'
-        
-        
-        do
         python3 tyyun.py 
         done
