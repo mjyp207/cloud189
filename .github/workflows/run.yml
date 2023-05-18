@@ -1,7 +1,25 @@
-!/usr/bin/python3
- -- coding: utf-8 --
-# # @Time : 2023/4/4 9:23
-# #作者：https://www.52pojie.cn/thread-1231190-1-1.html
-# # -------------------------------
- cron "30 4 * * *" script-path=tyyun.py,tag=匹配cron用
- const $ = new Env('天翼云盘签到');
+name: 天翼云盘签到抽奖
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Run checkin script
+        run: python tyyun.py
+      - name: Send output to Slack
+        uses: rtCamp/action-slack-notify@v2.3
+        with:
+          status: ${{ job.status }}
+          fields: output
