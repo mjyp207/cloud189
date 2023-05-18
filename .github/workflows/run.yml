@@ -25,13 +25,9 @@ jobs:
       run: |
         pip install -r requirements.txt
         
-        username='${{ secrets.USER }}'
-        password='${{ secrets.PWD }}'
+        username='${{ secrets.USER }}'.split(',')
+        password='${{ secrets.PWD }}'.split(',')
         
-        
-        split=","
-
-
         python3 tyyun.py
 
         done
