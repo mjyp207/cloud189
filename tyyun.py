@@ -10,15 +10,15 @@ import random
 import os
 
 # 变量 username（手机号）,password（密码）
-username = "".split(',')
-password = "".split(',')
+username = "'${{ secrets.USER }}'".split(',')
+password = "'${{ secrets.PWD }}'".split(',')
 
 if(username == "" or password == ""):
     username = input("账号：")
     password = input("密码：")
 
 # 推送加
-plustoken = os.getenv("TOKEN")
+plustoken = "'${{ secrets.TOKEN }}'"
 
 
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
