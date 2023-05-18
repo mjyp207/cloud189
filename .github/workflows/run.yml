@@ -1,25 +1,65 @@
 name: 天翼云盘签到抽奖
 
 on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   schedule:
-    - cron: '0 0 * * *'
-
+    - cron: '0 22,14 * * *' 
 jobs:
-  checkin:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.x'
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      - name: Run checkin script
-        run: python tyyun.py
-      - name: Send output to Slack
-        uses: rtCamp/action-slack-notify@v2.3
-        with:
-          status: ${{ job.status }}
-          fields: output
+    - uses: actions/checkout@v2
+
+    - name: Install Python
+      run: |
+        sudo apt update && \
+        sudo apt install python3
+      
+    - name: requirements
+      run: |
+        pip3 install -r requirements.txt
+            
+        
+    - name: Checkin
+      run: |
+        user='${{ secrets.USER }}'
+        pwd='${{ secrets.PWD }}'
+        
+        user_list=()
+        pwd_list=()
+
+        IFS=","
+
+        for u in ${user[*]}
+        do
+        echo ${u}
+        user_list[${#user_list[*]}]=${u}
+        done
+
+        for p in ${pwd[*]}
+        do
+        echo ${p}
+        pwd_list[${#pwd_list[*]}]=${p}
+        done
+
+        user_num=${#user_list[*]}
+        pwd_num=${#pwd_list[*]}
+
+        if [ $user_num != $pwd_num ];then
+        echo "账号和密码个数不对应"
+        exit 1
+        else
+        echo "共有 $user_num 个账号，即将开始签到"
+        fi
+
+        for ((i=0;i<$user_num;i++))
+        do
+        python3 tyyun.py <<EOF
+        ${user_list[$i]}
+        ${pwd_list[$i]}
+        EOF
+        done
