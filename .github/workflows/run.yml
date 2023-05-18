@@ -27,6 +27,7 @@ jobs:
         
         username='${{ secrets.USER }}'.split(',')
         password='${{ secrets.PWD }}'.split(',')
+        plustoken='${{ secrets.token }}'
         
         python3 tyyun.py
 
