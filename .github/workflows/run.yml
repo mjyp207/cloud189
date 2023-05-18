@@ -24,9 +24,8 @@ jobs:
       run: |
         pip3 install -r requirements.txt
          
-      - name: 开始
+      - name: Checkin
         run: |
-          pip3 install requests
           user='${{ secrets.USER }}'
           passwd='${{ secrets.PWD }}' 
           python3 checkin.py ${user} ${passwd}
