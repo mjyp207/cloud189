@@ -9,9 +9,13 @@ import requests
 import random
 import os
 
-# 变量 ty_username（手机号）,ty_password（密码）
-ty_username = os.getenv("ty_username").split(',')
-ty_password = os.getenv("ty_password").split(',')
+# 变量 username（手机号）,password（密码）
+username = "".split(',')
+password = "".split(',')
+
+if(username == "" or password == ""):
+    username = input("账号：")
+    password = input("密码：")
 
 # 推送加
 plustoken = os.getenv("TOKEN")
@@ -24,7 +28,7 @@ B64MAP = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
 s = requests.Session()
 
 
-for i in range(len(ty_username)):
+for i in range(len(username)):
     print(f'开始执行帐号{i+1}')
 
     #推送函数
