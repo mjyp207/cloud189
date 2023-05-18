@@ -10,11 +10,11 @@ import random
 import os
 
 # 变量 ty_username（手机号）,ty_password（密码）
-ty_username = os.getenv("ty_username").split('&')
-ty_password = os.getenv("ty_password").split('&')
+ty_username = os.getenv("ty_username").split(',')
+ty_password = os.getenv("ty_password").split(',')
 
 # 推送加
-plustoken = os.getenv("plustoken")
+plustoken = os.getenv("TOKEN")
 
 
 BI_RM = list("0123456789abcdefghijklmnopqrstuvwxyz")
