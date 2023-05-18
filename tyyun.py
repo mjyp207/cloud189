@@ -1,13 +1,5 @@
-import time
-import re
-import json
-import base64
-import hashlib
-import urllib.parse, hmac
-import rsa
-import requests
-import random
-import os
+import requests, time, re, rsa, json, base64
+from urllib import parse
 
 # 变量 username（手机号）,password（密码）
 username = ""
