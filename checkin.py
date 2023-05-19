@@ -9,8 +9,8 @@ def __init__(self, username, password):
         self.password = password
    
    
-def main():
-    s=login(username, password)
+def check_in(self):
+        self.login()
     rand = str(round(time.time() * 1000))
     surl = f'https://api.cloud.189.cn/mkt/userSign.action?rand={rand}&clientType=TELEANDROID&version=8.6.3&model=SM-G930K'
     url = f'https://m.cloud.189.cn/v2/drawPrizeMarketDetails.action?taskId=TASK_SIGNIN&activityId=ACT_SIGNIN'
@@ -22,7 +22,7 @@ def main():
         "Host": "m.cloud.189.cn",
         "Accept-Encoding": "gzip, deflate",
     }
-    response = s.get(surl, headers=headers)
+    response = self.client.get(surl, headers=headers)
     netdiskBonus = response.json()['netdiskBonus']
     if (response.json()['isSign'] == "false"):
         print(f"未签到，签到获得{netdiskBonus}M空间")
@@ -37,7 +37,7 @@ def main():
         "Host": "m.cloud.189.cn",
         "Accept-Encoding": "gzip, deflate",
     }
-    response = s.get(url, headers=headers)
+    response = self.client.get(url, headers=headers)
     if ("errorCode" in response.text):
         print(response.text)
         res2 = ""
@@ -45,7 +45,7 @@ def main():
         description = response.json()['description']
         print(f"抽奖获得{description}")
         res2 = f"抽奖获得{description}"
-    response = s.get(url2, headers=headers)
+    response = self.client.get(url2, headers=headers)
     if ("errorCode" in response.text):
         print(response.text)
         res3 = ""
@@ -54,7 +54,7 @@ def main():
         print(f"抽奖获得{description}")
         res3 = f"抽奖获得{description}"
  
-    response = s.get(url3, headers=headers)
+    response = self.client.get(url3, headers=headers)
     if ("errorCode" in response.text):
         print(response.text)
         res4 = ""
@@ -113,7 +113,7 @@ def login(username, password):
     url=""
     urlToken="https://m.cloud.189.cn/udb/udb_login.jsp?pageId=1&pageKey=default&clientType=wap&redirectURL=https://m.cloud.189.cn/zhuanti/2021/shakeLottery/index.html"
     s = requests.Session()
-    r = s.get(urlToken)
+    r = self.client.get(urlToken)
     pattern = r"https?://[^\s'\"]+"  # 匹配以http或https开头的url
     match = re.search(pattern, r.text)  # 在文本中搜索匹配
     if match:  # 如果找到匹配
@@ -122,7 +122,7 @@ def login(username, password):
     else:  # 如果没有找到匹配
         print("没有找到url")
  
-    r = s.get(url)
+    r = self.client.get(url)
     # print(r.text)
     pattern = r"<a id=\"j-tab-login-link\"[^>]*href=\"([^\"]+)\""  # 匹配id为j-tab-login-link的a标签，并捕获href引号内的内容
     match = re.search(pattern, r.text)  # 在文本中搜索匹配
@@ -132,7 +132,7 @@ def login(username, password):
     else:  # 如果没有找到匹配
         print("没有找到href链接")
  
-    r = s.get(href)
+    r = self.client.get(href)
     captchaToken = re.findall(r"captchaToken' value='(.+?)'", r.text)[0]
     lt = re.findall(r'lt = "(.+?)"', r.text)[0]
     returnUrl = re.findall(r"returnUrl= '(.+?)'", r.text)[0]
@@ -164,7 +164,7 @@ def login(username, password):
     else:
         print(r.json()['msg'])
     redirect_url = r.json()['toUrl']
-    r = s.get(redirect_url)
+    r = self.client.get(redirect_url)
     return s
  
  
